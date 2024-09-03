@@ -1,0 +1,51 @@
+stages:
+  - build
+  - deploy
+
+
+
+variables:
+  IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+
+before_script:
+  - apk update
+  - apk add curl
+  - apk add --no-cache git
+  - echo $CI_REGISTRY_USER
+  - echo $CI_REGISTRY
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  - hostname -i
+  - curl ifconfig.co
+
+build_job:
+  stage: build
+  image: 
+    name: docker:20.10.16
+    docker:
+    
+      user: root
+  services:
+    - docker:20.10.16-dind
+  script:
+    - echo "docker build" 
+    - docker ps -a 
+    - docker images
+    - echo "Build process completed"
+  timeout: 10m
+
+deploy_job:
+  stage: deploy
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker images
+    - docker-compose up --build
+  environment:
+    name: production
+    url: http://localhost:8000
+  only:
+    - main
+
+  needs: ["build_job"]

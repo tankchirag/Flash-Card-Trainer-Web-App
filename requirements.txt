@@ -1,0 +1,4 @@
+Flask==2.0.1
+numpy==1.26
+urlquote
+Werkzeug==2.0.1
