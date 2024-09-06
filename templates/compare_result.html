@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="flashcard">
+    <h1>Answer Comparison</h1>
+    <p>Q: {{ card.question }}</p>
+    <p>Your Answer: {{ user_answer }}</p>
+    <p>Correct Answer: {{ card.answer }}</p>
+    <p>
+        {% if is_correct %}
+            <span style="color: green;">Correct!</span>
+        {% else %}
+            <span style="color: red;">Incorrect</span>
+        {% endif %}
+    </p>
+    <form action="{{ url_for('next_card') }}" method="POST">
+        <button type="submit">Next Card</button>
+    </form>
+</div>
+{% endblock %}

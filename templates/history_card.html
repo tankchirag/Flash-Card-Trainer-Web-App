@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="history">
+    <h2>History for Question: {{ card.question }}</h2>
+    {% if history %}
+        <ul>
+            {% for record in history %}
+                <li>{{ record.timestamp }} - {{ 'Correct' if record.response == 'true' else 'Incorrect' if record.response == 'false' else 'Skipped' }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No history available for this question.</p>
+    {% endif %}
+    <a href="{{ url_for('history_deck', deck_index=deck_index) }}">Back to Deck</a>
+</div>
+{% endblock %}

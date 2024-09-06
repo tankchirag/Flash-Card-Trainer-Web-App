@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="edit-form">
+    <h2>Edit Card</h2>
+    <form method="post" action="{{ url_for('edit_card', deck_index=deck_index, card_index=card_index) }}">
+        <label for="question">Question:</label>
+        <input type="text" id="question" name="question" value="{{ card.question }}" required><br>
+        <label for="answer">Answer:</label>
+        <input type="text" id="answer" name="answer" value="{{ card.answer }}" required><br>
+        <label for="hint">Hint (optional):</label>
+        <input type="text" id="hint" name="hint" value="{{ card.hint }}"><br>
+        <button type="submit">Save</button>
+    </form>
+    <a href="{{ url_for('edit_deck', deck_index=deck_index) }}">Back to Deck</a>
+</div>
+{% endblock %}

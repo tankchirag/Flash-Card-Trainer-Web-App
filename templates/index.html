@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="deck-list">
+    <h2>Decks</h2>
+    <ul>
+        {% for deck in decks %}
+            <li>
+                <a href="{{ url_for('edit_deck', deck_index=loop.index0) }}">{{ deck.name }}</a>
+                <form method="post" action="{{ url_for('delete_deck', deck_index=loop.index0) }}" style="display:inline;">
+                    <button class="button" type="submit">Delete</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    <form method="post" action="{{ url_for('index') }}">
+        <label for="deck_name">New Deck:</label>
+        <input type="text" id="deck_name" name="deck_name" required>
+        <button type="submit">Add Deck</button>
+    </form>
+    
+</div>
+{% endblock %}

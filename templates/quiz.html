@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="quiz">
+    <h1>Quiz</h1>
+    <h2>Question: {{ card.question }}</h2>
+    <form method="post" action="{{ url_for('quiz') }}">
+        <button type="submit" name="response" value="true">I Know</button>
+        <button type="submit" name="response" value="false">I Don't Know</button>
+        <button type="submit" name="response" value="skip">Skip</button>
+        <button type="submit" name="response" value="quit">Quit Quiz</button>
+    </form>
+
+    {% if session.show_answer %}
+        <div>
+            <p><strong>Answer:</strong> {{ card.answer }}</p>
+        </div>
+    {% else %}
+        <form method="get" action="{{ url_for('show_answer', deck_index=session['deck_index'], card_index=card_index) }}">
+            <button class="button" type="submit">Show Answer</button>
+        </form>
+    {% endif %}
+
+    <p>Hint: {{ card.hint }}</p>
+    <p>Deck: {{ deck.name }}</p>
+    <p>Question {{ session['current_card_index'] + 1 }} of {{ session['card_order']|length }}</p>
+    <a href="{{ url_for('start_quiz') }}">Back to Start Quiz</a><br>
+    <a href="{{ url_for('home') }}">Home</a>
+</div>
+{% endblock %}

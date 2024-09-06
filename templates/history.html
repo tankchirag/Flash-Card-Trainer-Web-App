@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="history">
+    <h2>Learning History</h2>
+    {% if history %}
+        {% for deck_index in range(decks|length) %}
+            <button onclick="window.location.href='{{ url_for('history_deck', deck_index=deck_index) }}'">{{ decks[deck_index].name }}</button>
+        {% endfor %}
+    {% else %}
+        <p>No history available.</p>
+    {% endif %}
+    <a href="{{ url_for('index') }}">Back to Decks</a>
+</div>
+{% endblock %}

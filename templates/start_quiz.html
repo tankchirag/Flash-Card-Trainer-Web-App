@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="quiz">
+    <h1>Start Quiz</h1>
+    <form method="post" action="{{ url_for('start_quiz') }}">
+        <label for="deck_index">Select Deck:</label>
+        <select name="deck_index" id="deck_index">
+            {% for deck in decks %}
+                <option value="{{ loop.index0 }}">{{ deck.name }}</option>
+            {% endfor %}
+        </select><br>
+        <label for="repetition">Repetitions:</label>
+        <input type="number" id="repetition" name="repetition" min="1" value="1"><br>
+        <button type="submit">Start Quiz</button>
+    </form>
+    <a href="{{ url_for('index') }}">Back to Home</a>
+</div>
+{% endblock %}

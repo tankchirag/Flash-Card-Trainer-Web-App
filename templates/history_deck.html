@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="history">
+    <h2>History for Deck: {{ deck.name }}</h2>
+    {% if history %}
+        {% for card_index in range(deck.cards|length) %}
+            <button onclick="window.location.href='{{ url_for('history_card', deck_index=deck_index, card_index=card_index) }}'">{{ deck.cards[card_index].question }}</button>
+        {% endfor %}
+    {% else %}
+        <p>No history available for this deck.</p>
+    {% endif %}
+    <a href="{{ url_for('history_page') }}">Back to Decks</a>
+</div>
+{% endblock %}

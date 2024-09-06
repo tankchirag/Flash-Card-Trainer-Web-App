@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="quiz">
+    <h1>Show Answer</h1>
+    <p><strong>Answer:</strong> {{ card.answer }}</p>
+    <a href="{{ url_for('quiz') }}">Back to Quiz</a>
+</div>
+{% endblock %}

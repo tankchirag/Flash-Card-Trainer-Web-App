@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcard App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Flashcard App</h1>
+            {% if 'user_id' in session %}
+                <nav>
+                    <a href="{{ url_for('logout') }}">Logout</a> | 
+                    <a href="{{ url_for('index') }}">Decks</a> |
+                    <a href="{{ url_for('start_quiz') }}">Start Quiz</a> |  
+                    <a href="{{ url_for('history_page') }}">History</a>
+                </nav>
+            {% endif %}
+        </header>
+        <main>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <ul class="flashes">
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+</body>
+</html>
